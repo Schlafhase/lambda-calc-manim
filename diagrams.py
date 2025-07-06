@@ -7,7 +7,7 @@ class DiagramScene(MovingCameraScene):
         
         diagrams = []
         
-        with open("/home/Linus/Downloads/steps(2).json", "r") as file:
+        with open("/home/Linus/Downloads/steps(3).json", "r") as file:
             data = json.load(file)
             for step in data:
                 diagrams.append(vgroup_from_lambda_diagram(step["Lines"]))
