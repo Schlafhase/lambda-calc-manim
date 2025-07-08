@@ -41,27 +41,30 @@ class Conversions(MovingCameraScene):
         self.wait()
         
         lambda_y = MathTex(r"y", color=GREEN).move_to(ORIGIN).scale(2)
+        beta_normal_form_brace = BraceLabel(lambda_y, r"\text{Beta Normalform}", UP, color=BLUE)
         
-        self.play(TransformMatchingTex(equation_lambda, lambda_y))
+        self.play(TransformMatchingTex(equation_lambda, lambda_y), Write(beta_normal_form_brace, run_time=0.5))
         self.wait()
         
         lambda_example1 = MathTex(r"(\lambda x.x)(\lambda y.y)", substrings_to_isolate=["(\lambda y.y)"]).move_to(ORIGIN).scale(2)
         
-        self.play(ReplacementTransform(lambda_y, lambda_example1))
+        self.play(ReplacementTransform(lambda_y, lambda_example1), Unwrite(beta_normal_form_brace, run_time=0.5))
         self.wait()
         
         lambda_example1_solution = MathTex(r"(\lambda y.y)").move_to(ORIGIN).scale(2)
+        beta_normal_form_brace = BraceLabel(lambda_example1_solution, r"\text{Beta Normalform}", UP, color=BLUE)
         
-        self.play(TransformMatchingTex(lambda_example1, lambda_example1_solution))
+        self.play(TransformMatchingTex(lambda_example1, lambda_example1_solution), Write(beta_normal_form_brace, run_time=0.5))
         self.wait()
         
         lambda_example2 = MathTex(r"(\lambda x.(x (y \ x))(f \ f)", substrings_to_isolate=["(f \ f)"]).move_to(ORIGIN).scale(2)
         
-        self.play(ReplacementTransform(lambda_example1_solution, lambda_example2))
+        self.play(ReplacementTransform(lambda_example1_solution, lambda_example2), Unwrite(beta_normal_form_brace, run_time=0.5))
         self.wait()
         
         lambda_example2_solution = MathTex(r"(f \ f) (y (f \ f)", substrings_to_isolate=["(f \ f)"]).move_to(ORIGIN).scale(2)
+        beta_normal_form_brace = BraceLabel(lambda_example2_solution, r"\text{Beta Normalform}", UP, color=BLUE)
         
-        self.play(TransformMatchingTex(lambda_example2, lambda_example2_solution))
+        self.play(TransformMatchingTex(lambda_example2, lambda_example2_solution), Write(beta_normal_form_brace, run_time=0.5))
         self.wait()
-        self.play(Unwrite(lambda_example2_solution))
+        self.play(Unwrite(lambda_example2_solution), Unwrite(beta_normal_form_brace))
