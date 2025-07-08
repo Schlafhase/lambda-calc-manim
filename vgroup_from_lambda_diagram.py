@@ -27,7 +27,7 @@ def vgroup_from_lambda_diagram(diagram):
             array([x1, y2, 0])
         )
 
-        rect.stroke_width = 5
+        rect.stroke_width = 1
         rect.set_fill(BLUE, opacity=1)
         rect.set_stroke(BLUE)
         

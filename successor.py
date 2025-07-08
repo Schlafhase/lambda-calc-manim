@@ -33,30 +33,64 @@ class Successor(Scene):
         self.wait()
 
         successor_step2_example = MathTex(r"\lambda f.f \ (\lambda f.\lambda x.f \ x)", color=RED,
-                                          substrings_to_isolate=["S = ", "\lambda n.", "\lambda f.", "f \ x"]).set_color_by_tex(
+                                          substrings_to_isolate=["S = ", "\lambda n.", "\lambda f.",
+                                                                 "f \ x"]).set_color_by_tex(
             "S", BLUE).scale(0.5).shift(0.5 * UP)
 
         self.play(ReplacementTransform(successor_step2.copy(), successor_step2_example))
         self.wait()
-        
+
         successor_step2_example_step2 = MathTex(r"\lambda f.\lambda x.f \ (f \ x)", color=GREEN,
                                                 substrings_to_isolate=["\lambda f.", "f \ x"]).set_color_by_tex(
             "S", BLUE).scale(0.5).shift(0.5 * UP)
         self.play(TransformMatchingTex(successor_step2_example, successor_step2_example_step2))
         self.wait()
-        
+
         successor_step3 = MathTex(r"S = \lambda n.\lambda f.\lambda x.f \ n",
                                   substrings_to_isolate=["S = ", "\lambda n.", "f \ n", "\lambda f.", "\lambda x."])
         successor_step3.set_color_by_tex("S", BLUE)
-        
+
         self.play(TransformMatchingTex(successor_step2, successor_step3))
         self.wait()
-        
+
         successor_final = MathTex(r"S = \lambda n.\lambda f.\lambda x.f \ (n \ f \ x)",
                                   substrings_to_isolate=["S = ", "\lambda n.", "\lambda f.", "\lambda x."]).scale(0.7)
         successor_final.set_color_by_tex("S", BLUE)
-        
+
         self.play(TransformMatchingTex(successor_step3, successor_final))
         self.wait()
+        self.play(Unwrite(successor_step2_example_step2), Unwrite(example_after), Unwrite(example_before))
+
+        successor_example = MathTex(r"S \ (\lambda f.\lambda x.f \ (f \ x))", color=GREEN,
+                                    substrings_to_isolate=["(\lambda f.\lambda x.f \ (f \ x))"]).scale(0.5).shift(
+            0.5 * UP)
+
+        self.play(Write(successor_example))
+        self.wait()
+        self.play(TransformMatchingTex(successor_example,
+                                       successor_example := MathTex(
+                                           r"(\lambda n.\lambda f.\lambda x.f \ (n \ f \ x)) (\lambda f.\lambda x.f \ (f \ x))",
+                                           substrings_to_isolate=["(\lambda f.\lambda x.f \ (f \ x))", "\lambda f.\lambda x.f \ (", " \ f \ x)"],
+                                           color=GREEN).scale(0.5).shift(0.5 * UP)))
+        self.wait()
+        self.play(TransformMatchingTex(successor_example,
+                                       successor_example := MathTex(
+                                           r"\lambda f.\lambda x.f \ ((\lambda f.\lambda x.f \ (f \ x)) \ f \ x)",
+                                           substrings_to_isolate=["(\lambda f.\lambda x.f \ (f \ x))", "\lambda f.\lambda x.f \ (", " \ f \ x)", "x)"],
+                                           color=GREEN).scale(0.5).shift(0.5 * UP)))
+        self.wait()
+        self.play(TransformMatchingTex(successor_example,
+                                       successor_example := MathTex(
+                                           r"\lambda f.\lambda x.f \ ((\lambda x.f \ (f \ x)) \ x)",
+                                           substrings_to_isolate=["(\lambda f.\lambda x.f \ (f \ x))", "\lambda f.\lambda x.f \ (", "x)", "f \ (f \ x)"],
+                                           color=GREEN).scale(0.5).shift(0.5 * UP)))
+        self.wait()
+        self.play(TransformMatchingTex(successor_example,
+                                       successor_example := MathTex(
+                                           r"\lambda f.\lambda x.f \ (f \ (f \ x))",
+                                           substrings_to_isolate=["\lambda f.\lambda x.f \ (", "x)", "f \ (f \ x)"],
+                                           color=GREEN).scale(0.5).shift(0.5 * UP)))
+        self.wait()
+
         # Clear the scene
-        self.play(Unwrite(successor_final), Unwrite(successor_step2_example_step2), Unwrite(example_after), Unwrite(example_before))
+        self.play(successor_final.animate.shift(UP).scale(0.5), Unwrite(successor_example, run_time=0.5))
