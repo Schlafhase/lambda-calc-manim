@@ -15,7 +15,7 @@ class Successor(Scene):
         self.wait()
 
         example_before = MathTex(r"S \ (\lambda f.\lambda x.f \ (f \ x))").scale(0.5).shift(0.5 * DOWN)
-        example_after = MathTex(r"\lambda f.\lambda x.f \ (f \ (f \ x))", color=GRAY).scale(0.5).shift(0.8 * DOWN)
+        example_after = MathTex(r"\overset{\mathrm{\scriptscriptstyle \beta}}{=} \lambda f.\lambda x.f \ (f \ (f \ x))", color=GRAY).scale(0.5).shift(0.8 * DOWN)
 
         self.play(Write(example_before))
         self.wait()

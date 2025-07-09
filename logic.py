@@ -4,13 +4,16 @@ from manim import *
 class Logic(MovingCameraScene):
     def construct(self):
         curry = MathTex(r"\lambda a.\lambda b.a \ b", substrings_to_isolate=["\lambda a.", "\lambda b.a \ b"])
+        currying_text = Text("Currying", color=BLUE).next_to(curry, UP, buff=0.3)
 
         self.play(Write(curry[0]))
         self.wait()
         self.play(Write(curry[1]))
         self.wait()
+        self.play(Write(currying_text))
+        self.wait()
 
-        self.play(Unwrite(curry))
+        self.play(Unwrite(curry), Unwrite(currying_text))
 
         true_lambda = MathTex(r"T = \lambda a.\lambda b.a", color=GREEN,
                               substrings_to_isolate=["\lambda a.", "\lambda b.a"]).move_to(ORIGIN + 0.5 * UP)

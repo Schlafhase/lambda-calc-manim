@@ -45,8 +45,10 @@ class Addition(Scene):
                 example_steps.append(group)
                 
         self.play(Write(example_steps[0]))
+        self.wait()
         
         for step in example_steps[1:]:
             self.play(Transform(example_steps[0], step), run_time=0.5)
             self.wait(0.2)
             
+        self.play(Unwrite(example_steps[0]))

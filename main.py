@@ -41,5 +41,3 @@ class DefaultTemplate(MovingCameraScene):
         self.play(Transform(abstraction_box, body_box), Write(body_label), Transform(equation_lambda[3].copy(), equation[3]))
         self.wait(1)
         self.play(Transform(abstraction_box, application_box), Write(application_label), Transform(equation_lambda[4::].copy(), equation[4::]))
-        self.wait(1)
-        
