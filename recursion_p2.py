@@ -35,6 +35,7 @@ class Factorial(Scene):
         self.play(Write(fac_tex))
         self.wait()
         self.play(TransformMatchingTex(fac_tex, fac_tex_no_recurs))
+        self.wait()
 
         theta_fac = (MathTex(r"\Theta \ fac = fac \ (\Theta \ fac)",
                              substrings_to_isolate=["\Theta \ fac = ", "fac", "\Theta", "(", ")"])

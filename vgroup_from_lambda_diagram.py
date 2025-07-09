@@ -34,3 +34,8 @@ def vgroup_from_lambda_diagram(diagram):
         group.add(rect)
 
     return group
+
+def vgroup_from_lambda_diagram_file(filename):
+    with open(filename, "r") as file:
+        data = json.load(file)
+        return vgroup_from_lambda_diagram(data["Lines"])

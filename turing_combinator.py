@@ -52,4 +52,5 @@ class TuringCombinator(Scene):
         
         self.play(Write(theta_applied))
         self.wait()
-        self.play(theta_applied.animate.move_to(ORIGIN).shift(3 * UP).scale(0.7))
+        self.play(theta_applied.animate.move_to(ORIGIN).shift(3 * UP).scale(0.7),
+                  Unwrite(theta_expanded_3), Unwrite(u_tex), Unwrite(theta_tex))

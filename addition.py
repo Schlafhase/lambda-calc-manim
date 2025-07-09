@@ -1,6 +1,7 @@
 import json
 from manim import *
-from vgroup_from_lambda_diagram import vgroup_from_lambda_diagram
+from vgroup_from_lambda_diagram import vgroup_from_lambda_diagram, vgroup_from_lambda_diagram_file
+
 
 class Addition(Scene):
     def construct(self):
@@ -17,6 +18,8 @@ class Addition(Scene):
         addition.set_color_by_tex("+", BLUE)
         addition.set_color_by_tex("S", BLUE)
         
+        addition_diagram = vgroup_from_lambda_diagram_file("addition.json").scale_to_fit_height(0.7).next_to(addition, DOWN)
+        
         self.play(Write(addition[0]))
         self.wait()
         self.play(Write(addition[1]))
@@ -30,9 +33,7 @@ class Addition(Scene):
                                     substrings_to_isolate=["+ = ", r"\lambda m.\lambda n.", r"m \ ", "n"]).scale(0.5)
         addition_full.set_color_by_tex("+", BLUE)
         
-        self.play(TransformMatchingTex(addition, addition_full))
-        self.wait()
-        self.play(Unwrite(successor_final, run_time=0.5), addition_full.animate.shift(UP).scale(0.7))
+        self.play(TransformMatchingTex(addition, addition_full), Create(addition_diagram))
         self.wait()
         
         example_steps = []
@@ -44,11 +45,12 @@ class Addition(Scene):
                 group.scale_to_fit_width(self.renderer.camera.frame_width - 1.5)
                 example_steps.append(group)
                 
-        self.play(Write(example_steps[0]))
+        self.play(Unwrite(successor_final, run_time=0.5), addition_full.animate.shift(UP).scale(0.7),
+                  ReplacementTransform(addition_diagram, example_steps[0]))
         self.wait()
         
         for step in example_steps[1:]:
             self.play(Transform(example_steps[0], step), run_time=0.5)
             self.wait(0.2)
             
-        self.play(Unwrite(example_steps[0]))
+        self.play(Unwrite(example_steps[0]), Unwrite(addition_full))

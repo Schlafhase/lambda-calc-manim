@@ -37,10 +37,11 @@ class Diagrams(MovingCameraScene):
         self.play(TransformMatchingTex(identity,
                                        application),
                   Transform(bounding_box, SurroundingRectangle(application[2])))
-        
+
         self.wait()
         self.play(Transform(identity_diagram[0], application_diagram[0]),
                   Transform(identity_diagram[1], VGroup(application_diagram[1], application_diagram[2])),
-                  Transform(application[2].copy(), application_diagram[3::]))
+                  ReplacementTransform(application[2].copy(), temp := application_diagram[3::]))
         self.wait()
-        self.play(Unwrite(application), Uncreate(bounding_box), Unwrite(identity_diagram))
+        self.play(Unwrite(application), Uncreate(bounding_box), Unwrite(identity_diagram), Unwrite(temp),
+                  Unwrite(application_diagram))
